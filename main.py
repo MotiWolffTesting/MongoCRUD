@@ -1,4 +1,6 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import JSONResponse
+from bson import ObjectId
 from fastapi.middleware.cors import CORSMiddleware
 import os
 import logging
@@ -49,13 +51,25 @@ app.add_middleware(
 
 NOT_FOUND = "not found"
 
+def to_serializable(obj):
+    """Recursively convert BSON types (e.g., ObjectId) to JSON-serializable values."""
+    if isinstance(obj, ObjectId):
+        return str(obj)
+    if isinstance(obj, dict):
+        return {k: to_serializable(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [to_serializable(v) for v in obj]
+    if isinstance(obj, tuple):
+        return tuple(to_serializable(v) for v in obj)
+    return obj
+
 @app.get("/soldiersdb/")
 async def get_all_soldiers():
     "Get all soldiers from the database"
     try:
         result = soldier_dal.get_all_soldiers()
         if result.success:
-            return result.model_dump()
+            return JSONResponse(content=to_serializable(result.model_dump()))
         else:
             raise HTTPException(status_code=500, detail=result.message)
     except Exception as e:
@@ -68,7 +82,7 @@ async def create_soldier(soldier_data: SoldierCreate):
     try:
         result = soldier_dal.create_soldier(soldier_data)
         if result.success:
-            return result.model_dump()
+            return JSONResponse(content=to_serializable(result.model_dump()))
         else:
             raise HTTPException(status_code=400, detail=result.message)
     except Exception as e:
@@ -81,7 +95,7 @@ async def update_soldier(soldier_id: int, update_data: SoldierUpdate):
     try:
         result = soldier_dal.update_soldier(soldier_id, update_data)
         if result.success:
-            return result.model_dump()
+            return JSONResponse(content=to_serializable(result.model_dump()))
         else:
             if NOT_FOUND in result.message.lower():
                 raise HTTPException(status_code=404, detail=result.message)
@@ -100,7 +114,7 @@ async def delete_soldier(soldier_id: int):
     try:
         result = soldier_dal.delete_soldier(soldier_id)
         if result.success:
-            return result.model_dump()
+            return JSONResponse(content=to_serializable(result.model_dump()))
         else:
             if NOT_FOUND in result.message.lower():
                 raise HTTPException(status_code=404, detail=result.message)

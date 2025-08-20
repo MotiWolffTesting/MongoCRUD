@@ -72,10 +72,13 @@ class SoldierDal:
 
             if result.inserted_id:
                 logger.info(f"Successfully created soldier with ID: {new_id}")
+                # PyMongo mutates the original dict and injects _id (ObjectId). Drop it for JSON safety.
+                safe_doc = dict(soldier_doc)
+                safe_doc.pop("_id", None)
                 return ResponseMessage(
                     message=f"Successfully created soldier with ID: {new_id}",
                     success=True,
-                    data={"id": new_id, "soldier": soldier_doc},
+                    data={"id": new_id, "soldier": safe_doc},
                 )
             else:
                 return ResponseMessage(message="Failed to create soldier", success=False)
