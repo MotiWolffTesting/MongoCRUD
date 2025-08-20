@@ -49,39 +49,39 @@ app.add_middleware(
 
 NOT_FOUND = "not found"
 
-@app.get("/soldiersdb/", response_model=ResponseMessage)
+@app.get("/soldiersdb/")
 async def get_all_soldiers():
     "Get all soldiers from the database"
     try:
         result = soldier_dal.get_all_soldiers()
         if result.success:
-            return result
+            return result.model_dump()
         else:
             raise HTTPException(status_code=500, detail=result.message)
     except Exception as e:
         logger.error(f"Error in get_all_soldiers endpoint: {e}")
         raise HTTPException(status_code=500, detail=str(e))
     
-@app.post("/soldiersdb/", response_model=ResponseMessage)
+@app.post("/soldiersdb/")
 async def create_soldier(soldier_data: SoldierCreate):
     "Create a new soldier record"
     try:
         result = soldier_dal.create_soldier(soldier_data)
         if result.success:
-            return result
+            return result.model_dump()
         else:
             raise HTTPException(status_code=400, detail=result.message)
     except Exception as e:
         logger.error(f"Error in create_soldier endpoint: {e}")
         raise HTTPException(status_code=500, detail=str(e))
     
-@app.put("/soldiersdb/{soldier_id}", response_model=ResponseMessage)
+@app.put("/soldiersdb/{soldier_id}")
 async def update_soldier(soldier_id: int, update_data: SoldierUpdate):
     "Update a soldier record by ID"
     try:
         result = soldier_dal.update_soldier(soldier_id, update_data)
         if result.success:
-            return result
+            return result.model_dump()
         else:
             if NOT_FOUND in result.message.lower():
                 raise HTTPException(status_code=404, detail=result.message)
@@ -94,13 +94,13 @@ async def update_soldier(soldier_id: int, update_data: SoldierUpdate):
         raise HTTPException(status_code=500, detail=str(e))
     
     
-@app.delete("/soldiersdb/{soldier_id}", response_model=ResponseMessage)
+@app.delete("/soldiersdb/{soldier_id}")
 async def delete_soldier(soldier_id: int):
     "Delete a soldier record by ID"
     try:
         result = soldier_dal.delete_soldier(soldier_id)
         if result.success:
-            return result
+            return result.model_dump()
         else:
             if NOT_FOUND in result.message.lower():
                 raise HTTPException(status_code=404, detail=result.message)
@@ -112,13 +112,13 @@ async def delete_soldier(soldier_id: int):
         logger.error(f"Error in delete_soldier endpoint: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.get("/soldiersdb/{soldier_id}", response_model=ResponseMessage)
+@app.get("/soldiersdb/{soldier_id}")
 async def get_soldier_by_id(soldier_id: int):
     "Get a specific soldier by ID"
     try:
         result = soldier_dal.get_soldier_by_id(soldier_id)
         if result.success:
-            return result
+            return result.model_dump()
         else:
             if NOT_FOUND in result.message.lower():
                 raise HTTPException(status_code=404, detail=result.message)
