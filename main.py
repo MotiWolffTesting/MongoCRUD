@@ -47,6 +47,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+NOT_FOUND = "not found"
+
 @app.get("/soldiersdb/", response_model=ResponseMessage)
 async def get_all_soldiers():
     "Get all soldiers from the database"
@@ -81,7 +83,7 @@ async def update_soldier(soldier_id: int, update_data: SoldierUpdate):
         if result.success:
             return result
         else:
-            if "not found" in result.message.lower():
+            if NOT_FOUND in result.message.lower():
                 raise HTTPException(status_code=404, detail=result.message)
             else:
                 raise HTTPException(status_code=400, detail=result.message)
@@ -100,7 +102,7 @@ async def delete_soldier(soldier_id: int):
         if result.success:
             return result
         else:
-            if "not found" in result.message.lower():
+            if NOT_FOUND in result.message.lower():
                 raise HTTPException(status_code=404, detail=result.message)
             else:
                 raise HTTPException(status_code=400, detail=result.message)
@@ -118,7 +120,7 @@ async def get_soldier_by_id(soldier_id: int):
         if result.success:
             return result
         else:
-            if "not found" in result.message.lower():
+            if NOT_FOUND in result.message.lower():
                 raise HTTPException(status_code=404, detail=result.message)
             else:
                 raise HTTPException(status_code=400, detail=result.message)
