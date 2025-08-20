@@ -1,0 +1,291 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  generateName: enemy-soldiers-api-794d6b87bb-
+  annotations:
+    k8s.ovn.org/pod-networks: '{"default":{"ip_addresses":["10.128.2.179/23"],"mac_address":"0a:58:0a:80:02:b3","gateway_ips":["10.128.2.1"],"routes":[{"dest":"10.128.0.0/14","nextHop":"10.128.2.1"},{"dest":"172.30.0.0/16","nextHop":"10.128.2.1"},{"dest":"169.254.0.5/32","nextHop":"10.128.2.1"},{"dest":"100.64.0.0/16","nextHop":"10.128.2.1"}],"ip_address":"10.128.2.179/23","gateway_ip":"10.128.2.1","role":"primary"}}'
+    k8s.v1.cni.cncf.io/network-status: |-
+      [{
+          "name": "ovn-kubernetes",
+          "interface": "eth0",
+          "ips": [
+              "10.128.2.179"
+          ],
+          "mac": "0a:58:0a:80:02:b3",
+          "default": true,
+          "dns": {}
+      }]
+    kubectl.kubernetes.io/restartedAt: '2025-08-20T09:53:48Z'
+    kubernetes.io/limit-ranger: 'LimitRanger plugin set: cpu, memory request for container enemy-soldiers-api; cpu, memory limit for container enemy-soldiers-api'
+    openshift.io/scc: restricted-v2
+    seccomp.security.alpha.kubernetes.io/pod: runtime/default
+  resourceVersion: '4183408517'
+  name: enemy-soldiers-api-794d6b87bb-lcrmn
+  uid: 7c0f0b30-3eb8-42dd-86e8-d051e4c51d8d
+  creationTimestamp: '2025-08-20T09:53:48Z'
+  managedFields:
+    - manager: ip-10-0-68-140
+      operation: Update
+      apiVersion: v1
+      time: '2025-08-20T09:53:48Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            'f:k8s.ovn.org/pod-networks': {}
+      subresource: status
+    - manager: kube-controller-manager
+      operation: Update
+      apiVersion: v1
+      time: '2025-08-20T09:53:48Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            .: {}
+            'f:kubectl.kubernetes.io/restartedAt': {}
+          'f:generateName': {}
+          'f:labels':
+            .: {}
+            'f:app': {}
+            'f:pod-template-hash': {}
+          'f:ownerReferences':
+            .: {}
+            'k:{"uid":"e9ab1b5a-30eb-461e-b588-2ad49a52bf2f"}': {}
+        'f:spec':
+          'f:containers':
+            'k:{"name":"enemy-soldiers-api"}':
+              'f:image': {}
+              'f:terminationMessagePolicy': {}
+              .: {}
+              'f:resources': {}
+              'f:args': {}
+              'f:command': {}
+              'f:env':
+                .: {}
+                'k:{"name":"MONGODB_URI"}':
+                  .: {}
+                  'f:name': {}
+                  'f:value': {}
+              'f:terminationMessagePath': {}
+              'f:imagePullPolicy': {}
+              'f:ports':
+                .: {}
+                'k:{"containerPort":8000,"protocol":"TCP"}':
+                  .: {}
+                  'f:containerPort': {}
+                  'f:protocol': {}
+              'f:name': {}
+          'f:dnsPolicy': {}
+          'f:enableServiceLinks': {}
+          'f:restartPolicy': {}
+          'f:schedulerName': {}
+          'f:securityContext': {}
+          'f:terminationGracePeriodSeconds': {}
+    - manager: multus-daemon
+      operation: Update
+      apiVersion: v1
+      time: '2025-08-20T09:53:49Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            'f:k8s.v1.cni.cncf.io/network-status': {}
+      subresource: status
+    - manager: kubelet
+      operation: Update
+      apiVersion: v1
+      time: '2025-08-20T09:53:50Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:status':
+          'f:conditions':
+            'k:{"type":"ContainersReady"}':
+              .: {}
+              'f:lastProbeTime': {}
+              'f:lastTransitionTime': {}
+              'f:status': {}
+              'f:type': {}
+            'k:{"type":"Initialized"}':
+              .: {}
+              'f:lastProbeTime': {}
+              'f:lastTransitionTime': {}
+              'f:status': {}
+              'f:type': {}
+            'k:{"type":"PodReadyToStartContainers"}':
+              .: {}
+              'f:lastProbeTime': {}
+              'f:lastTransitionTime': {}
+              'f:status': {}
+              'f:type': {}
+            'k:{"type":"Ready"}':
+              .: {}
+              'f:lastProbeTime': {}
+              'f:lastTransitionTime': {}
+              'f:status': {}
+              'f:type': {}
+          'f:containerStatuses': {}
+          'f:hostIP': {}
+          'f:hostIPs': {}
+          'f:phase': {}
+          'f:podIP': {}
+          'f:podIPs':
+            .: {}
+            'k:{"ip":"10.128.2.179"}':
+              .: {}
+              'f:ip': {}
+          'f:startTime': {}
+      subresource: status
+  namespace: motiwolff-dev
+  ownerReferences:
+    - apiVersion: apps/v1
+      kind: ReplicaSet
+      name: enemy-soldiers-api-794d6b87bb
+      uid: e9ab1b5a-30eb-461e-b588-2ad49a52bf2f
+      controller: true
+      blockOwnerDeletion: true
+  labels:
+    app: enemy-soldiers-api
+    pod-template-hash: 794d6b87bb
+spec:
+  restartPolicy: Always
+  serviceAccountName: default
+  imagePullSecrets:
+    - name: default-dockercfg-ss6v9
+  priority: -3
+  schedulerName: default-scheduler
+  enableServiceLinks: true
+  terminationGracePeriodSeconds: 30
+  preemptionPolicy: PreemptLowerPriority
+  nodeName: ip-10-0-68-140.ec2.internal
+  securityContext:
+    seLinuxOptions:
+      level: 's0:c77,c49'
+    fsGroup: 1005950000
+    seccompProfile:
+      type: RuntimeDefault
+  containers:
+    - resources:
+        limits:
+          cpu: '1'
+          memory: 1000Mi
+        requests:
+          cpu: 10m
+          memory: 64Mi
+      terminationMessagePath: /dev/termination-log
+      name: enemy-soldiers-api
+      command:
+        - uvicorn
+      env:
+        - name: MONGODB_URI
+          value: 'mongodb://admin:adminpass@mongodb:27017/enemy_soldiers?authSource=admin'
+      securityContext:
+        capabilities:
+          drop:
+            - ALL
+        runAsUser: 1005950000
+        runAsNonRoot: true
+        allowPrivilegeEscalation: false
+      ports:
+        - containerPort: 8000
+          protocol: TCP
+      imagePullPolicy: Always
+      volumeMounts:
+        - name: kube-api-access-nnmt7
+          readOnly: true
+          mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      terminationMessagePolicy: File
+      image: 'docker.io/motiwolff/enemy-soldiers-api:v1-amd64'
+      args:
+        - 'main:app'
+        - '--host'
+        - 0.0.0.0
+        - '--port'
+        - '8000'
+  serviceAccount: default
+  volumes:
+    - name: kube-api-access-nnmt7
+      projected:
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              name: kube-root-ca.crt
+              items:
+                - key: ca.crt
+                  path: ca.crt
+          - downwardAPI:
+              items:
+                - path: namespace
+                  fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+          - configMap:
+              name: openshift-service-ca.crt
+              items:
+                - key: service-ca.crt
+                  path: service-ca.crt
+        defaultMode: 420
+  dnsPolicy: ClusterFirst
+  tolerations:
+    - key: node.kubernetes.io/not-ready
+      operator: Exists
+      effect: NoExecute
+      tolerationSeconds: 300
+    - key: node.kubernetes.io/unreachable
+      operator: Exists
+      effect: NoExecute
+      tolerationSeconds: 300
+    - key: node.kubernetes.io/memory-pressure
+      operator: Exists
+      effect: NoSchedule
+  priorityClassName: sandbox-users-pods
+status:
+  containerStatuses:
+    - restartCount: 0
+      started: true
+      ready: true
+      name: enemy-soldiers-api
+      state:
+        running:
+          startedAt: '2025-08-20T09:53:50Z'
+      volumeMounts:
+        - name: kube-api-access-nnmt7
+          mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          readOnly: true
+          recursiveReadOnly: Disabled
+      imageID: 'docker.io/motiwolff/enemy-soldiers-api@sha256:93bdc1441c8da2ef38966942be088354a2bbf87092299fb2472e81f43412902e'
+      image: 'docker.io/motiwolff/enemy-soldiers-api:v1-amd64'
+      lastState: {}
+      containerID: 'cri-o://a4cb67c2d39d1a47f22329193b616c34bf4ad0632015508f2ed980f4ebfd8595'
+  qosClass: Burstable
+  hostIPs:
+    - ip: 10.0.68.140
+  podIPs:
+    - ip: 10.128.2.179
+  podIP: 10.128.2.179
+  hostIP: 10.0.68.140
+  startTime: '2025-08-20T09:53:48Z'
+  conditions:
+    - type: PodReadyToStartContainers
+      status: 'True'
+      lastProbeTime: null
+      lastTransitionTime: '2025-08-20T09:53:50Z'
+    - type: Initialized
+      status: 'True'
+      lastProbeTime: null
+      lastTransitionTime: '2025-08-20T09:53:48Z'
+    - type: Ready
+      status: 'True'
+      lastProbeTime: null
+      lastTransitionTime: '2025-08-20T09:53:50Z'
+    - type: ContainersReady
+      status: 'True'
+      lastProbeTime: null
+      lastTransitionTime: '2025-08-20T09:53:50Z'
+    - type: PodScheduled
+      status: 'True'
+      lastProbeTime: null
+      lastTransitionTime: '2025-08-20T09:53:48Z'
+  phase: Running
