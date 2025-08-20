@@ -37,8 +37,9 @@ class SoldierDal:
             cursor = self.collection.find({})
             soldiers = []
             for document in cursor:
+                # Drop Mongo's ObjectId to keep JSON serializable and preserve numeric id
                 if "_id" in document:
-                    document["id"] = document.pop("_id")
+                    document.pop("_id", None)
                 soldiers.append(document)
 
             logger.info(f"Successfully got {len(soldiers)} soldiers.")
@@ -159,8 +160,9 @@ class SoldierDal:
                     message=f"Soldier with ID {soldier_id} not found", success=False
                 )
 
+            # Drop Mongo's ObjectId field before returning
             if "_id" in soldier:
-                soldier["id"] = soldier.pop("_id")
+                soldier.pop("_id", None)
 
             logger.info(f"Successfully got soldier with ID: {soldier_id}")
             return ResponseMessage(
